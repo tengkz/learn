@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<math.h>
+void main(){
+    int c[10]={0};
+    int a,b,e,d,k,m,n;
+    int t,i,j;
+    for(a=12;a<=49;a++){
+        for(k=2;k<=8;k++){
+            d=a*k;
+            if(d>=100)
+                continue;
+            for(b=12;b<=98;b++){
+                for(e=2;e<=9;e++){
+                    for(i=1;i<=9;i++){
+                        c[i]=0;
+                    }
+                    t=0,m=0,n=0;
+                    c[a/10]++;
+                    c[a%10]++;
+                    c[d/10]++;
+                    c[d%10]++;
+                    c[b/10]++;
+                    c[b%10]++;
+                    c[e]++;
+                    for(i=1;i<=9;i++){
+                        if(c[i]>1){
+                            t=1;
+                            break;
+                        }
+                    }
+                    if(t==1)
+                        continue;
+                    for(i=1;i<=9;i++){
+                        if(c[i]==0){
+                            if(m==0)
+                                m=i;
+                            else
+                                n=i;
+                        }
+                    }
+                    if(m==1 || n==1)
+                        continue;
+                    t=1;
+                    for(i=1;i<=n;i++)
+                        t*=m;
+                    if(t+k-b*e==0){
+                        printf("%d^%d+%d/%d-%d*%d=0\n",m,n,d,a,b,e);
+                    }
+                    else{
+                        t=1;
+                        for(i=1;i<=m;i++)
+                            t*=n;
+                        if(t+k-b*e==0){
+                            printf("%d^%d+%d/%d-%d*%d=0\n",n,m,d,a,b,e);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
