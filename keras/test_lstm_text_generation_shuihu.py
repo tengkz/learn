@@ -17,12 +17,10 @@ import random
 import sys
 
 def process_chinese_text(text):
-    text.replace(u'"',u'')
-    text.replace(u'“',u'')
-    text.replace(u'”',u'')
-    text.replace(u'？',u'。')
-    text.replace(u'：',u'')
-    text.replace(u'；',u'。')
+    before_char = [u'"',u'“',u'”',u'？',u'：',u'；']
+    after_char = [u'',u'',u'',u'。',u'',u'。']
+    for b,a in zip(before_char,after_char):
+        text = text.replace(b,a)
     return text
     
 def read_chinese_file(filename):
@@ -49,7 +47,7 @@ def char_indices(text,num_words=100):
 def vectorize(text,char_indices):
     return [char_indices.get(c,1000) for c in text]
 
-filename = 'F:/data/text/shuihu.txt'
+filename = '/data/text/antusheng.txt'
 text = read_chinese_file(filename)
 text = process_chinese_text(text)
 print('Corpus length:',len(text))
@@ -100,7 +98,7 @@ def on_epoch_end(epoch,logs):
     print()
     print('--- Generating text after epoch: {}'.format(epoch))
     start_index = random.randint(0,len(data)-maxlen-1)
-    for diversity in [0.5,1.0,1.2,1.5]:
+    for diversity in [0.2,0.5,1.0,1.2]:
         print('--- diversity:',diversity)
         generated = ''
         sentence = data[start_index:start_index+maxlen]
