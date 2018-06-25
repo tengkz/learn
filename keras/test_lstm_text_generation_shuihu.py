@@ -17,12 +17,12 @@ import random
 import sys
 
 def process_chinese_text(text):
-#    text.replace('"','')
-#    text.replace('“','')
-#    text.replace('”','')
-#    text.replace('？','。')
-#    text.replace('：','')
-#    text.replace('；','。')
+    text.replace(u'"',u'')
+    text.replace(u'“',u'')
+    text.replace(u'”',u'')
+    text.replace(u'？',u'。')
+    text.replace(u'：',u'')
+    text.replace(u'；',u'。')
     return text
     
 def read_chinese_file(filename):
@@ -49,7 +49,7 @@ def char_indices(text,num_words=100):
 def vectorize(text,char_indices):
     return [char_indices.get(c,1000) for c in text]
 
-filename = '/data/text/shuihu.txt'
+filename = 'F:/data/text/shuihu.txt'
 text = read_chinese_file(filename)
 text = process_chinese_text(text)
 print('Corpus length:',len(text))
@@ -63,8 +63,8 @@ print('Valid chars:',len(char_indices))
 
 data = vectorize(text,char_indices)
 
-maxlen = 20
-step = 1
+maxlen = 10
+step = 3
 sentences = []
 next_chars = []
 
@@ -82,7 +82,7 @@ for i,sentence in enumerate(sentences):
 
 print('Build model...')
 model = Sequential()
-model.add(LSTM(256,input_shape=(maxlen,num_chars)))
+model.add(LSTM(128,input_shape=(maxlen,num_chars)))
 model.add(Dense(num_chars))
 model.add(Activation('softmax'))
 
