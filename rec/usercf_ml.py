@@ -70,7 +70,7 @@ def recommend_usercf(user,train,user_matrix,K):
     return rank
 
 def evaluation_usercf(iteration,data):
-    data_train,data_test = train_test_split(data,iteration,10)
+    data_train,data_test = train_test_split(data,iteration,3)
     print 'split finish'
     user_matrix = user_similarity(data_train)
     print 'similarity finish'
