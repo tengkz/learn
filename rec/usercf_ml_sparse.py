@@ -17,6 +17,7 @@ def read_ratings(filename):
     return data
 
 def train_test_split(data,k,M=10):
+    np.random.seed(0)
     s = np.random.randint(M,size=(len(data),))
     train = [item for i,item in enumerate(data) if s[i]!=k]
     test = [item for i,item in enumerate(data) if s[i]==k]
@@ -29,7 +30,6 @@ def data_to_sparse(data):
     return data_csr
 
 def user_similarity(data_csr):
-    print data_csr.shape
     numerator = (data_csr*data_csr.transpose()).todense()
     diag = numerator.diagonal()
     num_users = data_csr.shape[0]
@@ -57,18 +57,18 @@ def evaluation(data_train,data_test):
     data_train_csr = data_to_sparse(data_train)
     data_test_csr = data_to_sparse(data_test)
     user_matrix = user_similarity(data_train_csr)
-    pp = np.zeros(shape=(data_test_csr.shape[0],))
-    rr = np.zeros(shape=(data_test_csr.shape[0],))
+    pp_n = 0
+    pp_d = 0
+    rr_d = 0
     for u in range(1,data_test_csr.shape[0]):
         rec = set(recommend_usercf(u,data_train_csr,user_matrix,topk))
         real = set(data_test_csr.getrow(u).nonzero()[1].tolist())
-        p = 1.0*len(rec&real)/len(rec)
-        r = 1.0*len(rec&real)/(1.0 if len(real)==0 else len(real))
-        pp[u] = p
-        rr[u] = r
-    return pp.mean(),rr.mean()
+        pp_n += len(rec&real)
+        pp_d += len(rec)
+        rr_d += len(real)
+    return pp_n*1.0/pp_d,pp_n*1.0/rr_d
 
-K = 5
+K = 10
 topk = 10
 filename = 'F:\\data\\rec\\movielens_1m\\ml-1m\\ratings.dat'
 data = read_ratings(filename)
