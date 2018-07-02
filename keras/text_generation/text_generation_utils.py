@@ -44,5 +44,5 @@ def src_to_words(filename):
         f.write(('.\n'.join(result)).encode('utf-8'))
     
 if __name__ == '__main__':
-    filename = '/data/text/antusheng.txt'
+    filename = 'F:/data/text/antusheng.txt'
     src_to_words(filename)
