@@ -69,25 +69,37 @@ def recommend_usercf(user,train,user_matrix,K):
             rank[i] += wuv
     return rank
 
+def evaluation_usercf(iteration,data):
+    data_train,data_test = train_test_split(data,iteration,10)
+    print 'split finish'
+    user_matrix = user_similarity(data_train)
+    print 'similarity finish'
+    precision = []
+    recall = []
+    for user in data_test.keys():
+        if user in data_train.keys():
+            rec = recommend_usercf(user,data_train,user_matrix,K)
+            rec_items = sorted(rec.items(),key=itemgetter(1),reverse=True)[0:10]
+            rec_items = set([item[0] for item in rec_items])
+            p = 1.0*len(rec_items&data_test[user])/len(rec_items)
+            r = 1.0*len(rec_items&data_test[user])/len(data_test[user])
+            precision.append(p)
+            recall.append(r)
+    print 'precision and recall finish'
+    return sum(precision)/len(precision),sum(recall)/len(recall)
+
 filename = 'F:\\data\\rec\\movielens_1m\\ml-1m\\ratings.dat'
 data = read_ratings(filename)
-print 'read finish'
-data_train,data_test = train_test_split(data,0,10)
-print 'split finish'
-user_matrix = user_similarity(data_train)
-print 'similarity finish'
 
 K = 10
 precision = []
 recall = []
-for user in data_test.keys():
-    if user in data_test.keys():
-        rec = recommend_usercf(user,data_train,user_matrix,K)
-        rec_items = sorted(rec.items(),key=itemgetter(1),reverse=True)[0:10]
-        rec_items = set([item[0] for item in rec_items])
-        p = 1.0*len(rec_items&data_test[user])/len(rec_items)
-        r = 1.0*len(rec_items&data_test[user])/len(data_test[user])
-        precision.append(p)
-        recall.append(p)
+
+for iteration in range(10):
+    print 'Iteration: ',iteration
+    p,r = evaluation_usercf(iteration,data)
+    precision.append(p)
+    recall.append(r)
+    
 print 'Precision: ',sum(precision)/len(precision)
 print 'Recall: ',sum(recall)/len(recall)
