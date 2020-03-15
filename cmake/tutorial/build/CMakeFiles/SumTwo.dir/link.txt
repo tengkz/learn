@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/SumTwo.dir/SumTwo.cxx.o  -o SumTwo  MathFunctions/libMathFunctions.a 

@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/git/learn/cmake/tutorial/MathFunctions/MathFunctions.h
+
+/home/ubuntu/git/learn/cmake/tutorial/MathFunctions/mysumtwo.cxx
+iostream
+-
+MathFunctions.h
+/home/ubuntu/git/learn/cmake/tutorial/MathFunctions/MathFunctions.h
+

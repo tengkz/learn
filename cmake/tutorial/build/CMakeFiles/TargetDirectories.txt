@@ -1,0 +1,6 @@
+/home/ubuntu/git/learn/cmake/tutorial/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/git/learn/cmake/tutorial/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/git/learn/cmake/tutorial/build/CMakeFiles/SumTwo.dir
+/home/ubuntu/git/learn/cmake/tutorial/build/MathFunctions/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/git/learn/cmake/tutorial/build/MathFunctions/CMakeFiles/edit_cache.dir
+/home/ubuntu/git/learn/cmake/tutorial/build/MathFunctions/CMakeFiles/MathFunctions.dir
